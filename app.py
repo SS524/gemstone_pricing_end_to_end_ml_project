@@ -2,9 +2,9 @@ from flask import Flask,request,render_template,jsonify
 from src.pipeline.prediction_pipeline import CustomData,PredictPipeline
 
 
-application=Flask(__name__)
+app=Flask(__name__)
 
-app=application
+
 
 
 @app.route('/')
@@ -15,7 +15,7 @@ def home_page():
 
 def predict_datapoint():
     if request.method=='GET':
-        return render_template('form.html')
+        return render_template('index.html')
     
     else:
         data=CustomData(
@@ -26,7 +26,7 @@ def predict_datapoint():
             y = float(request.form.get('y')),
             z = float(request.form.get('z')),
             cut = request.form.get('cut'),
-            color= request.form.get('color'),
+            color= request.form.get('colour'),
             clarity = request.form.get('clarity')
         )
         final_new_data=data.get_data_as_dataframe()
@@ -34,8 +34,9 @@ def predict_datapoint():
         pred=predict_pipeline.predict(final_new_data)
 
         results=round(pred[0],2)
+    
 
-        return render_template('results.html',final_result=results)
+        return render_template('index.html',final_result=results)
 
 
 

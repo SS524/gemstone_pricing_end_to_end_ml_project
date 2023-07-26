@@ -4,4 +4,5 @@ Flask
 ipykernel
 seaborn
 scikit-learn
+gunicorn
 -e .
